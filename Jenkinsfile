@@ -9,6 +9,14 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/kadekriyan/CodeIgniter.git'
             }
         }
+		stage('Install Composer') {
+            steps {
+                sh '''
+                curl -sS https://getcomposer.org/installer | php
+                mv composer.phar /usr/local/bin/composer
+                '''
+            }
+        }
         stage('Install Dependencies') {
             steps {
                sh 'composer install --no-dev --optimize-autoloader'
