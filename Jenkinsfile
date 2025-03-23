@@ -12,7 +12,7 @@ pipeline {
 	stage('Install PHP') {
 	    steps {
 	        sh '''
-	        sudo apt-get update && sudo apt-get install -y php-cli php-mbstring unzip curl
+	        apt-get update && apt-get install -y php-cli php-mbstring unzip curl
 	        '''
 	    }
 	}
