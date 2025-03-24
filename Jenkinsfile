@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'php:8.2'
+        }
+    }
     environment {
         CI_ENV = 'production'
     }
