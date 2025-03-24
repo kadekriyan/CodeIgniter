@@ -9,6 +9,16 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/kadekriyan/CodeIgniter.git'
             }
         }
+        stage('Install PHP & Composer') {
+            steps {
+                sh '''
+                sudo apt-get update
+                sudo apt-get install -y php-cli php-mbstring unzip curl
+                curl -sS https://getcomposer.org/installer | php
+                sudo mv composer.phar /usr/local/bin/composer
+                '''
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 sh 'composer install --no-dev --optimize-autoloader'
@@ -16,7 +26,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh 'phpunit'
+                sh 'vendor/bin/phpunit'
             }
             post {
                 success {
@@ -30,7 +40,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying to production environment...'
-                // Tambahkan perintah deploy sesuai kebutuhan Anda
+                // Tambahkan perintah deploy sesuai kebutuhan
             }
         }
     }
