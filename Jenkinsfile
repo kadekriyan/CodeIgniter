@@ -11,12 +11,15 @@ pipeline {
         }
         stage('Install PHP & Composer') {
             steps {
-                sh '''
-                apt-get update
-                apt-get install -y php-cli php-mbstring unzip curl
-                curl -sS https://getcomposer.org/installer | php
-                mv composer.phar /usr/local/bin/composer
-                '''
+                script {
+                    docker.image('php:8.2').inside {
+                        sh '''
+                        apt-get update && apt-get install -y unzip curl
+                        curl -sS https://getcomposer.org/installer | php
+                        mv composer.phar /usr/local/bin/composer
+                        '''
+                    }
+                }
             }
         }
         stage('Install Dependencies') {
