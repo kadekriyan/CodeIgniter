@@ -9,10 +9,19 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/kadekriyan/CodeIgniter.git'
             }
         }
+	stage('Fix APT Issues') {
+	    steps {
+	        sh '''
+	        rm -rf /var/lib/apt/lists/*
+	        mkdir -p /var/lib/apt/lists/partial
+	        apt-get update
+	        '''
+	    }
+	}
 	stage('Install PHP') {
 	    steps {
 	        sh '''
-	        apt-get update && apt-get install -y php-cli php-mbstring unzip curl
+	        apt-get install -y php-cli php-mbstring unzip curl
 	        '''
 	    }
 	}
