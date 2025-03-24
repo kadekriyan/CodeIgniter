@@ -12,10 +12,10 @@ pipeline {
         stage('Install PHP & Composer') {
             steps {
                 sh '''
-                sudo apt-get update
-                sudo apt-get install -y php-cli php-mbstring unzip curl
+                apt-get update
+                apt-get install -y php-cli php-mbstring unzip curl
                 curl -sS https://getcomposer.org/installer | php
-                sudo mv composer.phar /usr/local/bin/composer
+                mv composer.phar /usr/local/bin/composer
                 '''
             }
         }
