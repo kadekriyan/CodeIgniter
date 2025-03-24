@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/username/CodeIgniter.git'
+                git branch: 'main', url: 'https://github.com/kadekriyan/CodeIgniter.git'
             }
         }
         stage('Install Dependencies') {
